@@ -11,3 +11,5 @@ document.querySelector<HTMLElement>('material-shell').appendChild(app);
 // import "./firebase/onAuthStateChanged.js";
 
 import './global-listeners.js';
+
+import './gamepad.js';

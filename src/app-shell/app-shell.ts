@@ -1,5 +1,5 @@
 import {LitElement, html} from 'lit';
-import {customElement} from 'lit/decorators.js';
+import {customElement, query} from 'lit/decorators.js';
 import {withStyles} from 'lit-with-styles';
 import styles from './app-shell.css?inline';
 import {materialShellLoadingOff} from 'material-shell';
@@ -20,6 +20,8 @@ declare global {
 @withStyles(styles)
 @withController(astate)
 export class AppShell extends LitElement {
+	@query('#main-button') mainButton!: HTMLButtonElement;
+
 	firstUpdated() {
 		materialShellLoadingOff.call(this);
 	}
@@ -27,10 +29,14 @@ export class AppShell extends LitElement {
 	render() {
 		return html`
 			<div id="content">
-				<md-elevated-button inert>${astate.a} x ${astate.b}</md-elevated-button>
+				<md-elevated-button inert
+					>${astate.a}
+					<span class="font-light">×</span> ${astate.b}</md-elevated-button
+				>
 
 				<md-text-button
 					?trailing-icon=${astate.showAnswer}
+					id="main-button"
 					@click=${() => {
 						if (astate.showAnswer) {
 							astate.newRound();
@@ -43,7 +49,7 @@ export class AppShell extends LitElement {
 						? html`${astate.getAnswer()}<md-icon slot="icon"
 									>arrow_forward</md-icon
 								>`
-						: html`<md-icon slot="icon">remove_red_eye</md-icon>Show answer`}
+						: html`<md-icon slot="icon">remove_red_eye</md-icon>Answer`}
 				</md-text-button>
 			</div>
 

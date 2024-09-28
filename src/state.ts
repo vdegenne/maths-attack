@@ -10,9 +10,18 @@ class AppState extends ReactiveController {
 	@state() b: number = null;
 	@state() showAnswer = false;
 
+	update(changed: PropertyValues<this>) {
+		if (this.difficulty === 0) {
+			this.difficulty = 1;
+		} else if (this.difficulty === 10) {
+			this.difficulty = 9;
+		}
+	}
+
 	updated(changed: PropertyValues<this>) {
 		if (
 			changed.has('difficulty') &&
+			changed.get('difficulty') !== this.difficulty &&
 			(changed.get('difficulty') !== undefined || this.a === null)
 		) {
 			this.newRound();
@@ -27,11 +36,11 @@ class AppState extends ReactiveController {
 		this.showAnswer = false;
 		switch (this.difficulty) {
 			case 1:
-				this.a = getRandomNumber(1, 9);
-				this.b = getRandomNumber(1, 9);
+				this.a = getRandomNumber(2, 9);
+				this.b = getRandomNumber(2, 9);
 				break;
 			case 2:
-				this.a = getRandomNumber(1, 9);
+				this.a = getRandomNumber(2, 9);
 				this.b = getRandomNumber(10, 99);
 				break;
 			case 3:

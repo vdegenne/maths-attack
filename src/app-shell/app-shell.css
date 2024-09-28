@@ -11,9 +11,12 @@
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-	gap: 16px;
-	--md-elevated-button-label-text-size: 42px;
-	--md-elevated-button-label-text-line-height: 68px;
+	gap: 24px;
+	--md-elevated-button-label-text-size: 46px;
+	--md-elevated-button-label-text-line-height: 72px;
+	--md-text-button-label-text-size: 34px;
+	--md-text-button-label-text-line-height: 69px;
+	--md-text-button-icon-size: 43px;
 }
 
 footer {
