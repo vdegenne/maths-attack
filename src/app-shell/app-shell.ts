@@ -6,6 +6,7 @@ import {materialShellLoadingOff} from 'material-shell';
 import {astate} from '../state.js';
 import {withController} from '@snar/lit';
 import {bindInput} from 'relit';
+import {cancelSpeech, speakEnglish, speakFrench} from '@vdegenne/speech';
 
 declare global {
 	interface Window {
@@ -21,15 +22,26 @@ declare global {
 @withController(astate)
 export class AppShell extends LitElement {
 	@query('#main-button') mainButton!: HTMLButtonElement;
+	@query('#calculus') calculus!: HTMLElement;
 
 	firstUpdated() {
 		materialShellLoadingOff.call(this);
 	}
 
+	updated() {
+		let input: string;
+		if (astate.showAnswer) {
+			input = '' + astate.a * astate.b;
+		} else {
+			input = this.calculus.textContent;
+		}
+		speakFrench(input);
+	}
+
 	render() {
 		return html`
 			<div id="content">
-				<md-elevated-button inert
+				<md-elevated-button inert id="calculus"
 					>${astate.a}
 					<span class="font-light">×</span> ${astate.b}</md-elevated-button
 				>
